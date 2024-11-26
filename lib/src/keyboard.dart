@@ -54,6 +54,9 @@ class VirtualKeyboard extends StatefulWidget {
   /// will be ignored if customLayoutKeys is not null
   final List<VirtualKeyboardDefaultLayouts>? defaultLayouts;
 
+  /// use the calculatorNumberStyle to build Number by Calculator style
+  final NumericStyle numericStyle;
+
   VirtualKeyboard(
       {Key? key,
       required this.type,
@@ -69,6 +72,7 @@ class VirtualKeyboard extends StatefulWidget {
       this.height = _virtualKeyboardDefaultHeight,
       this.textColor = Colors.black,
       this.fontSize = 14,
+      this.numericStyle = NumericStyle.basic,
       this.alwaysCaps = false})
       : super(key: key);
 
@@ -327,7 +331,7 @@ class _VirtualKeyboardState extends State<VirtualKeyboard> {
     // Get the keyboard Rows
     List<List<VirtualKeyboardKey>> keyboardRows =
         type == VirtualKeyboardType.Numeric
-            ? _getKeyboardRowsNumeric()
+            ? _getKeyboardRowsNumeric(numberStyle: widget.numericStyle)
             : _getKeyboardRows(customLayoutKeys);
 
     // Generate keyboard row.

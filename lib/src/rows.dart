@@ -1,7 +1,7 @@
 part of virtual_keyboard_multi_language;
 
 /// Keys for Virtual Keyboard's rows.
-const List<List> _keyRowsNumeric = [
+const List<List> _keyRowsNumericBasic = [
   // Row 1
   const [
     '1',
@@ -26,6 +26,36 @@ const List<List> _keyRowsNumeric = [
     '0',
   ],
 ];
+const List<List> _keyRowsNumericCalculatorStyle = [
+  // Row 1
+  const [
+    '9',
+    '8',
+    '7',
+  ],
+  // Row 1
+  const [
+    '6',
+    '5',
+    '4',
+  ],
+  // Row 1
+  const [
+    '3',
+    '2',
+    '1',
+  ],
+  // Row 1
+  const [
+    '.',
+    '0',
+  ],
+];
+NumericStyle _numberStyle = NumericStyle.basic;
+
+List<List> get _keyRowsNumeric => _numberStyle == NumericStyle.calculator
+    ? _keyRowsNumericCalculatorStyle
+    : _keyRowsNumericBasic;
 
 /// Returns a list of `VirtualKeyboardKey` objects for Numeric keyboard.
 List<VirtualKeyboardKey> _getKeyboardRowKeysNumeric(rowNum) {
@@ -76,7 +106,9 @@ List<List<VirtualKeyboardKey>> _getKeyboardRows(
 }
 
 /// Returns a list of VirtualKeyboard rows with `VirtualKeyboardKey` objects.
-List<List<VirtualKeyboardKey>> _getKeyboardRowsNumeric() {
+List<List<VirtualKeyboardKey>> _getKeyboardRowsNumeric(
+    {NumericStyle numberStyle = NumericStyle.basic}) {
+  _numberStyle = numberStyle;
   // Generate lists for each keyboard row.
   return List.generate(_keyRowsNumeric.length, (int rowNum) {
     // Will contain the keyboard row keys.
@@ -102,3 +134,5 @@ List<List<VirtualKeyboardKey>> _getKeyboardRowsNumeric() {
     return rowKeys;
   });
 }
+
+enum NumericStyle { basic, calculator }
